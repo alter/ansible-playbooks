@@ -1,0 +1,14 @@
+- name: check portal settings 
+  hosts: vbox1 
+  gather_facts: no
+
+  roles:
+    - portal
+
+- name: check drbd 
+  hosts: vbox2 
+  gather_facts: no
+  
+  roles:
+    - item
+

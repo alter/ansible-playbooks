@@ -1,0 +1,8 @@
+admin_team:
+  - { user: 'alter', comment: 'Roman Dolgov', key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYIX38J/i16iedtP0wUnTK13eh4eGkCL0sa2GMi/TPA6ANFdF/D1AbUXgp88SuQNXrMa8hs9E5+D+/LtCFy+jN+RHEZmVXtnW7WckYAynw5i66Le8MUeRpjBo1m5C865WY0qCoKwkQfZSX6yecw8Gt9sw26SrL3oeLEM4zoiI+NHhahQYanwA7i6LLE6A2UEz2ni/ZNZH3eVaOVknD8D9b6MjDRtMoBkdHu2g3Xx2fOGpIQXOp99H0oofDCTB7BBwelWOYmRHUAvbyNIdJlWFFdamSWAevoHarrypZiCKc0TUYzi6etzSyJkOJoOoyy1xt2UG6jaAzKs2iqFgcBJ0n alter@M1USER0061', shell: '/bin/zsh' }
+  - { user: 'n506', comment: 'Dmitriy Kutepov', key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjjXrr6cZIDRRGih90P1WPjA2o5YXNG9Y2+Jhq18hBYJs6NKWaMyXsjvwBuHIJrbb9T9Rn9vVOr4fvMyGM0I+N9jr1bpGeq7BGZgqRtLoNrW/fvODKkKImDrwDKJG/B+EPRNLlOTvs2EsdVEJbJDi4ix0Ilj3D+SKe+AJ5gURY26DIKYEmMmyq2Ea8WmLam+rs8EfDkQw6NCkQvZSDzgs5pK+iwI4MVOKYisa0hakwfeS+qCiZr5nORy+TdwfJLJXovWFpQ24GacK3iK4FWdB3iafcFNc5BuHxpZeWcPUFoDf1ePlWD+sts44mzfaWyk95xV2NTUZmIsZ2L/Brucb1 n506@n506', shell: '/bin/bash' }
+  - { user: 'sticeberg', comment: 'Alexander Tikhomirov', key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpFL+DrUxRsGOjC041AMx7SNwaxF7uUHGLtwq1/YkexpctkpJStYRv9mbvqRTDit5Mugy6Khk3Uux/S0r7g2ZxjgK+QU6iex9SKzm6/pRZkWEFVA0NQCBjrkRlRVCoRBpYhnO0OSwdE/QLIe9k2FwSGnMf6M5RbmlSViVDCrZ68CsArs7N6rrmAcMK0yy+BwrWSvVtvc92ao4K9li8rTg4VVy3E/F+NSNAJj90a+RAf6sb8M6qfbf0pTtxXU51kdRP2iS5QRj8KNkgdMFAD9+wYZpm9bs7vlWOaycVFlGsN9zevXaYrjkHLPYtCGGvCISfgEWAbUgdmuimUGnAMm7n sticeberg@gosts-MacBook-Air.local', shell: '/bin/bash' }
+
+game_users:
+  - { user: 'f1', shell: '/bin/bash', home: '/f1', uid: '6001' }
+  - { user: 'a1', shell: '/bin/bash', home: '/a1', uid: '6002' }

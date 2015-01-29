@@ -1,0 +1,5 @@
+- name: First deploy, install necessary packages and users
+  hosts: vbox
+
+  roles:
+    - preconf

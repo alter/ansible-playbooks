@@ -1,0 +1,12 @@
+- name: get drbd mount
+  shell: bash -c 'df -h |grep drbd'
+  register: result
+  ignore_errors: True
+
+- name: check rc
+  local_action: shell echo 'error in command execution'
+  failed_when: result.rc != 0
+
+- name: check drbd
+  local_action: shell echo 'wrong configuration there is no drbd'
+  failed_when: result.stdout.find('drbd') == -1

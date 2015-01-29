@@ -1,0 +1,48 @@
+- name: update system packages
+  sudo: yes
+  apt: upgrade=safe update_cache=yes
+
+- name: installing packages 
+  sudo: yes
+  apt: pkg={{ item }}
+  with_items:
+    - zsh
+    - htop
+    - vim
+    - mc
+    - wget
+    - curl
+    - tmux
+    - facter
+    - tcpdump
+    - iptraf
+    - pbzip2
+    - pigz
+    - tcptraceroute
+
+
+- name: add users for project
+  sudo: yes
+  user: name="{{ item.user }}" shell="{{ item.shell }}" home="{{ item.home }}" uid="{{ item.uid }}"
+  with_items:
+    - "{{ game_users }}"
+
+- name: add admins
+  sudo: yes
+  user: name="{{ item.user }}" shell="{{ item.shell }}" groups='sudo' comment="{{ item.comment }}"
+  with_items:
+    - "{{ admin_team }}"
+
+- name: add ssh keys for admins
+  sudo: yes
+  authorized_key: user="{{ item.user }}" key="{{ item.key }}"
+  with_items:
+    - "{{ admin_team }}"
+
+- name: copy vimrc file
+  sudo: yes
+  copy: src=".vimrc" dest="/home/{{ item.user }}/.vimrc" owner="{{ item.user }}"
+  with_items:
+    - "{{ admin_team }}"
+
+

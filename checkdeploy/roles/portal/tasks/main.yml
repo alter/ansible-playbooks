@@ -1,0 +1,14 @@
+- name: get tomcat threads
+  shell: bash -c "cat /path_to_tomcat/tomcatTemplate/conf/server.xml | egrep 'name=\"tomcatThreadPool\"' -A1 | tail -1 | awk '{print \$1}' | awk -F '\"' '{print \$2}'"
+  ignore_errors: yes
+  register: maxThreads 
+
+- name: check rc
+  local_action: shell echo 'error in command execution'
+  failed_when: maxThreads.rc != 0
+
+- name: check result
+  local_action: shell echo "wrong configuration, maxThreads is {{ maxThreads.stdout }}"
+  with_items:
+    - "{{ tomcat }}"
+  failed_when: maxThreads.stdout != "{{ item.threads }}"

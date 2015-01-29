@@ -1,0 +1,6 @@
+- hosts: vbox
+  sudo: yes 
+  gather_facts: no
+  tasks:
+    - name: poweroff
+      command: /sbin/poweroff
