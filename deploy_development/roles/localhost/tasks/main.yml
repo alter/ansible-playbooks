@@ -1,0 +1,65 @@
+- name: clean sf folder
+  command: bash -c "rm -rf {{ item.dest }}/*"
+  with_items:
+    - "{{ svn }}"
+
+- name: export not obfuscated server
+  command: "svn export {{ item.repo }}/{{ item.version }}/Server {{ item.dest }}/Server"
+  with_items:
+    - "{{ svn }}" 
+
+- name: save version number
+  command: bash -c "echo {{ item.version }} > {{ item.dest }}/Server/version.info"
+  with_items:
+    - "{{ svn }}" 
+
+- name: export client
+  command: "svn export {{ item.repo }}/{{ item.version }}/Client {{ item.dest }}/Client"
+  with_items:
+    - "{{ svn }}" 
+
+- name: export helpers 
+  command: "svn export {{ item.repo }}/{{ item.version }}/Helpers {{ item.dest }}/Helpers"
+  with_items:
+    - "{{ svn }}" 
+
+- name: generate password for client
+  command: pwgen -Bs 8 1
+  ignore_errors: yes
+  register: client_password
+
+- name: generate password for helpers 
+  command: pwgen -Bs 8 1
+  ignore_errors: yes
+  register: helpers_password
+
+- name: 7z client
+  command: 7z a -l -mx0 -mhe=on -p"{{ client_password.stdout }}" -xr\!version.info "{{ item.dest }}/f1-full-{{ item.version }}-dev.7z" "{{ item.dest }}/Client"
+  with_items:
+    - "{{ svn }}"
+
+- name: 7z helpers 
+  command: 7z a -l -mx0 -mhe=on -p"{{ helpers_password.stdout }}" -xr\!version.info "{{ item.dest }}/f1-helpers-{{ item.version }}-dev.7z" "{{ item.dest }}/Helpers"
+  with_items:
+    - "{{ svn }}"
+
+- name: put client's password into file
+  command: bash -c "echo Client = {{ client_password.stdout }} > {{ item.dest }}/passwords"
+  with_items:
+    - "{{ svn }}"
+
+- name: put helper's password into file
+  command: bash -c "echo Helpers = {{ helpers_password.stdout }} >> {{ item.dest }}/passwords"
+  with_items:
+    - "{{ svn }}"
+
+- name: rsync server to remove host
+  command: bash -c "rsync --delete-after -avP {{ item.dest }}/Server/ root@{{ item.remote_host }}:{{ item.remote_path }}/"
+  with_items:
+    - "{{ svn }}"
+
+- name: rsync client and helpers
+  command: bash -c "rsync -avP {{ item.dest }}/f1-*.7z root@{{ item.remote_host }}:{{ item.remote_path_client }}/"
+  with_items:
+    - "{{ svn }}"
+

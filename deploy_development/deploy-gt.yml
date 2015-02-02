@@ -1,0 +1,7 @@
+- name: deploy development version 
+  hosts: deploy-gt
+  gather_facts: no
+
+  roles:
+    - deploy
+

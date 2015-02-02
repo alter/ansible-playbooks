@@ -1,0 +1,19 @@
+- name: change owner of server's files on the deploy hosts
+  sudo: yes
+  command: bash -c "chown -R {{ item.user }}.{{ item.group }} {{ item.local_path }}"
+  with_items:
+    - "{{ locals }}"
+
+- name: change owner of client's files on the remote hosts
+  sudo: yes
+  command: bash -c "chown -R {{ item.user }}.{{ item.group }} {{ item.local_path_client }}"
+  with_items:
+    - "{{ locals }}"
+
+- name: create symlinks
+  sudo: yes
+  command: bash -c "ln -sf /folder1/client/*.7z /var/www/versions/"
+
+- name: rsync version to misc
+  sudo: yes
+  command: bash /f1/tools/sync/shard/gpt/sync-gt-development.sh

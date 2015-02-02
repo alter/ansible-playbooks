@@ -1,0 +1,14 @@
+- name: prepare development version
+  hosts: localhost
+  gather_facts: no
+
+  roles:
+    - localhost
+
+- name: deploy development version 
+  hosts: deploy-gt
+  gather_facts: no
+
+  roles:
+    - deploy
+

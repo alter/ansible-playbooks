@@ -1,0 +1,2 @@
+locals:
+  - { local_path: '', user: '', group: '', local_path_client: '' }
