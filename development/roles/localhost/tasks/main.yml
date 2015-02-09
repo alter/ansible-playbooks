@@ -23,23 +23,29 @@
   with_items:
     - "{{ svn }}" 
 
+- name: rsync helpers to client
+  command: bash -c "rsync -avP {{ item.dest }}/Helpers/ {{ item.dest}}/Client/"
+  with_items:
+    - "{{ svn }}"
+
+- name: copy dev.bat file
+  copy: src="dev.bat" dest="{{ item.dest }}/Client/Bin32GM/"
+  with_items:
+    - "{{ svn }}"
+
+- name: copy ver.cfg file
+  copy: src="ver.cfg" dest="{{ item.dest }}/Client/Profiles/"
+  with_items:
+    - "{{ svn }}"
+
+
 - name: generate password for client
   command: pwgen -Bs 8 1
   ignore_errors: yes
   register: client_password
 
-- name: generate password for helpers 
-  command: pwgen -Bs 8 1
-  ignore_errors: yes
-  register: helpers_password
-
 - name: 7z client
   command: 7z a -l -mx0 -mhe=on -p"{{ client_password.stdout }}" -xr\!version.info "{{ item.dest }}/f1-full-{{ item.version }}-dev.7z" "{{ item.dest }}/Client"
-  with_items:
-    - "{{ svn }}"
-
-- name: 7z helpers 
-  command: 7z a -l -mx0 -mhe=on -p"{{ helpers_password.stdout }}" -xr\!version.info "{{ item.dest }}/f1-helpers-{{ item.version }}-dev.7z" "{{ item.dest }}/Helpers"
   with_items:
     - "{{ svn }}"
 
@@ -48,17 +54,12 @@
   with_items:
     - "{{ svn }}"
 
-- name: put helper's password into file
-  command: bash -c "echo Helpers = {{ helpers_password.stdout }} >> {{ item.dest }}/passwords"
-  with_items:
-    - "{{ svn }}"
-
 - name: rsync server to remove host
   command: bash -c "rsync --delete-after -avP {{ item.dest }}/Server/ root@{{ item.remote_host }}:{{ item.remote_path }}/"
   with_items:
     - "{{ svn }}"
 
-- name: rsync client and helpers
+- name: rsync client with helpers
   command: bash -c "rsync -avP {{ item.dest }}/f1-*.7z root@{{ item.remote_host }}:{{ item.remote_path_client }}/"
   with_items:
     - "{{ svn }}"
