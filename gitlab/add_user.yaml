@@ -1,0 +1,19 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    host: 127.0.0.1
+    email: user1@gmail.com
+    password: '!q2w3e$R'
+    username: 'vasya'
+  tasks:
+    - name: create user
+      uri:
+        url:  http://{{ host }}/api/v4/users
+        method: POST
+        body: "email={{ email }}&password={{ password }}&username={{ username }}&name={{ username }}&skip_confirmation=true"
+        headers:
+          PRIVATE-TOKEN: '6FZxFszF4JC6WyyC-jS3'
+        return_content: yes
+      register: user_page
+
+    - debug: msg={{ user_page }}

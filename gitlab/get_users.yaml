@@ -1,0 +1,15 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    host: 127.0.0.1
+  tasks:
+    - name: get users
+      uri:
+        url:  http://{{ host }}/api/v4/users
+        method: GET
+        headers:
+          PRIVATE-TOKEN: '6FZxFszF4JC6WyyC-jS3'
+        return_content: yes
+      register: users_page
+
+    - debug: msg={{ users_page.json }}
