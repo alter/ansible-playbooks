@@ -1,0 +1,18 @@
+[ui]
+username = Roman Dolgov <rdolgov@iponweb.net>
+
+[auth]
+userverland.prefix = https://hg.iponweb.net
+userverland.username = rdolgov
+userverland.password = Zdfck.,bk13
+userverland.schemes = https
+
+[trusted]
+users = root
+groups = root
+
+[extensions]
+color =
+progress =
+hgext.convert =
+

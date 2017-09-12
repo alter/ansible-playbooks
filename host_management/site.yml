@@ -1,0 +1,7 @@
+---
+- name:   host management
+  hosts:  localhost
+  become: yes
+
+  roles:
+    - users

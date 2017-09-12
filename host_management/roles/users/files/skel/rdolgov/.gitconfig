@@ -1,0 +1,9 @@
+[user]
+  email = alter.pub@gmail.com
+  name = rdolgov
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+

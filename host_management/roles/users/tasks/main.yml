@@ -1,0 +1,21 @@
+- name: add admins users
+  become: true
+  user:
+    name:     "{{ item.user }}"
+    shell:    "{{ item.shell }}"
+    groups:   "{{ item.groups }}"
+    home:     "{{ item.home }}"
+    comment:  "{{ item.comment }}"
+    state:    "{{ item.state | default('present') }}"
+    skeleton: "skel/{{ item.user }}"
+  with_items:
+    - "{{ admins }}"
+
+- name: add ssh keys for users
+  become: true
+  authorized_key:
+    user: "{{ item.user }}"
+    key:  "{{ item.key }}"
+  with_items:
+    - "{{ admins }}"
+
