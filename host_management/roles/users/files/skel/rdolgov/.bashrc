@@ -137,9 +137,6 @@ export ANSIBLE_HOSTS=/etc/ansible/hosts
 
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-export CVS_RSH=ssh; export CVSROOT=:ext:rdolgov@www.iponweb.net:/var/cvs
-export HOMEBREW_GITHUB_API_TOKEN='ad69c535109154ea36c689ce8e43eec9b97e8446'
-
 ssh-add -A &> /dev/null
 
 function ssh () {
