@@ -1,11 +1,5 @@
 [ui]
-username = Roman Dolgov <rdolgov@iponweb.net>
-
-[auth]
-userverland.prefix = https://hg.iponweb.net
-userverland.username = rdolgov
-userverland.password = Zdfck.,bk13
-userverland.schemes = https
+username = Roman Dolgov <alter.pub@gmail.com>
 
 [trusted]
 users = root
@@ -15,4 +9,4 @@ groups = root
 color =
 progress =
 hgext.convert =
-
+record =
