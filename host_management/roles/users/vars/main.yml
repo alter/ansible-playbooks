@@ -1,9 +1,10 @@
 admins:
-  - { user: 'alter',
-      groups: 'sudo',
-      home: '/home/alter',
-      comment: 'Roman Dolgov',
-      shell: '/bin/bash',
-      key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCcn9IYxLS6E1NopUCmzxPBuL6a++VO7XR/kTXoPsKv rdolgov@amac'
+  - { user: alter,
+      state: absent,
+      groups: sudo,
+      home: /home/alter,
+      comment: Roman Dolgov,
+      shell: /bin/bash,
+      key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCcn9IYxLS6E1NopUCmzxPBuL6a++VO7XR/kTXoPsKv rdolgov@amac
     }
 

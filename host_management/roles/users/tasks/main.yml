@@ -1,21 +1,41 @@
-- name: add admins users
+- name: manage admins users
   become: true
+  become_user: root
+  become_method: sudo
   user:
-    name:     "{{ item.user }}"
-    shell:    "{{ item.shell }}"
-    groups:   "{{ item.groups }}"
-    home:     "{{ item.home }}"
-    comment:  "{{ item.comment }}"
-    state:    "{{ item.state | default('present') }}"
-    skeleton: "skel/{{ item.user }}"
+    name:            "{{ item.user }}"
+    shell:           "{{ item.shell }}"
+    groups:          "{{ item.groups }}"
+    home:            "{{ item.home }}"
+    comment:         "{{ item.comment }}"
+    state:           "{{ item.state | default('present') }}"
+    ssh_key_comment: "{{ item.user }}"
+    skeleton:        "{{ role_path }}/files/skel/{{ item.user }}"
+    createhome:      yes
+    append:          yes
+    force:           yes
+    remove:          yes
   with_items:
     - "{{ admins }}"
 
 - name: add ssh keys for users
   become: true
+  become_user: root
+  become_method: sudo
   authorized_key:
-    user: "{{ item.user }}"
-    key:  "{{ item.key }}"
+    user:   "{{ item.user }}"
+    key:    "{{ item.key }}"
   with_items:
     - "{{ admins }}"
+  when:
+    - item.state == 'present'
 
+- name: adding admin users to sudoers
+  lineinfile:
+    dest: /etc/sudoers.d/myOverrides
+    line: "{{ item.user }}  ALL=(ALL) NOPASSWD: ALL"
+    validate: 'visudo -cf %s'
+  with_items:
+    - "{{ admins }}"
+  when:
+    - item.state == 'present'
