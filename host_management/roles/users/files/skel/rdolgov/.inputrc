@@ -1,0 +1,13 @@
+# include system wide readline settings
+$include /etc/inputrc
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set completion-ignore-case on
+set bell-style visible
+set colored-stats on
+set visible-stats on
+set page-completions off
+set completion-query-items 100
+# partial history search on up/down keys
+"\e[A": history-search-backward
+"\e[B": history-search-forward
