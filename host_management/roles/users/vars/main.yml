@@ -1,6 +1,7 @@
-admins:
+users:
   - { user: alter,
       state: absent,
+      is_admin: True,
       groups: sudo,
       home: /home/alter,
       comment: Roman Dolgov,

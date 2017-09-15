@@ -1,4 +1,4 @@
-- name: manage admins users
+- name: manage users
   become: true
   become_user: root
   become_method: sudo
@@ -16,7 +16,7 @@
     force:           yes
     remove:          yes
   with_items:
-    - "{{ admins }}"
+    - "{{ users }}"
 
 - name: add ssh keys for users
   become: true
@@ -26,16 +26,17 @@
     user:   "{{ item.user }}"
     key:    "{{ item.key }}"
   with_items:
-    - "{{ admins }}"
+    - "{{ users }}"
   when:
     - item.state == 'present'
 
-- name: adding admin users to sudoers
+- name: manage sudoers
   lineinfile:
-    dest: /etc/sudoers.d/myOverrides
-    line: "{{ item.user }}  ALL=(ALL) NOPASSWD: ALL"
-    validate: 'visudo -cf %s'
+    dest:       /etc/sudoers.d/myOverrides
+    line:       "{{ item.user }}  ALL=(ALL) NOPASSWD: ALL"
+    validate:   'visudo -cf %s'
+    state:      "{{ item.state }}"
   with_items:
-    - "{{ admins }}"
+    - "{{ users }}"
   when:
-    - item.state == 'present'
+    - item.is_admin == True
