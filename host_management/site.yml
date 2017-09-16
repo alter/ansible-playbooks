@@ -1,6 +1,8 @@
 ---
 - name:   host management
   hosts:  localhost
-
+#  uncomment following lines and add your users to it, see example in defaults of users role
+#  vars_files:
+#    - vars/users.yml
   roles:
-    - users
+    - { role: users, tags: ['users'] }

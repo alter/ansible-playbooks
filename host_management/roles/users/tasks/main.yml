@@ -1,7 +1,5 @@
 - name: manage users
   become: true
-  become_user: root
-  become_method: sudo
   user:
     name:            "{{ item.user }}"
     shell:           "{{ item.shell }}"
@@ -20,8 +18,6 @@
 
 - name: add ssh keys for users
   become: true
-  become_user: root
-  become_method: sudo
   authorized_key:
     user:   "{{ item.user }}"
     key:    "{{ item.key }}"
@@ -29,8 +25,18 @@
     - "{{ users }}"
   when:
     - item.state == 'present'
+    - item.key is defined
+
+- name: check is user exists
+  getent:
+    database: passwd
+    key: "{{ item.user }}"
+  register: user
+  with_items:
+    - "{{ users }}"
 
 - name: manage sudoers
+  become: true
   lineinfile:
     dest:       /etc/sudoers.d/myOverrides
     line:       "{{ item.user }}  ALL=(ALL) NOPASSWD: ALL"
@@ -40,3 +46,4 @@
     - "{{ users }}"
   when:
     - item.is_admin == True
+    - user

@@ -1,0 +1,11 @@
+users:
+  - { user: exampleuser,
+      state: absent,
+      is_admin: True,
+      groups: sudo,
+      home: /home/exampleuser,
+      comment: Example User,
+      shell: /bin/bash,
+      key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCcn9IYxLS6E1NopUCmzxPBuL6a++VO7XR/kTXoPsKv exampleuser@default
+    }
+
