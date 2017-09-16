@@ -8,4 +8,13 @@ users:
       shell: /bin/bash,
       key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCcn9IYxLS6E1NopUCmzxPBuL6a++VO7XR/kTXoPsKv exampleuser@default
     }
+  - { user: exampleuser2,
+      state: absent,
+      is_admin: False,
+      home: /home/exampleuser2,
+      comment: Example User 2,
+      shell: /bin/bash,
+      key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCcn9IYxLS6E1NopUCmzxPBuL6a++VO7XR/kTXoPsKv exampleuser@default
+    }
 
+default_group: users

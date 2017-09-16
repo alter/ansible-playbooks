@@ -1,9 +1,16 @@
+- name: create users group
+  become: true
+  group:
+    name: "{{ default_group }}"
+
 - name: manage users
   become: true
   user:
     name:            "{{ item.user }}"
     shell:           "{{ item.shell }}"
-    groups:          "{{ item.groups }}"
+    groups:
+      - "{{ item.groups | default(default_group) }}"
+      - "{{ default_group }}"
     home:            "{{ item.home }}"
     comment:         "{{ item.comment }}"
     state:           "{{ item.state | default('present') }}"
@@ -27,14 +34,6 @@
     - item.state == 'present'
     - item.key is defined
 
-- name: check is user exists
-  getent:
-    database: passwd
-    key: "{{ item.user }}"
-  register: user
-  with_items:
-    - "{{ users }}"
-
 - name: manage sudoers
   become: true
   lineinfile:
@@ -46,4 +45,3 @@
     - "{{ users }}"
   when:
     - item.is_admin == True
-    - user
